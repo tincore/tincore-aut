@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:data="http://www.thymeleaf.org/extras/data">
+<head>
+<title th:text="${title}">Title</title>
+<link th:replace="head :: head" />
+</head>
+<body>
+	<div class="container">
+		<div class="navbar navbar-inverse navbar-fixed-top" th:fragment="navbar (page)">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+					data-sem="navigation_toggle"
+						data-toggle="collapse" data-target="#navbar-collapse-1"
+						aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" th:href=" @{${@environment.getProperty('ui.url', '/')}}" >[AUT]</a>
+				</div>
+
+				<div class="collapse navbar-collapse" id="navbar-collapse-1">
+					<ul  class="nav navbar-nav navbar-right" data-sem="navigation_actions_container">
+	  				    <th:block th:if="${page == 'users'}">
+						  <li>
+							<a th:title="#{general.add.label}" th:href="@{#}" data-toggle="modal" data-target="[data-sem=user_create_container]"
+								data:sem="user_create_request">
+								<span class="glyphicon glyphicon-plus"></span>
+								<span class="visible-xs-inline" th:text="#{general.add.label}"></span>
+							</a>
+						  </li>
+					  	</th:block>
+	  				    <th:block th:if="${page == 'user'}">
+						  <li>
+							<a th:title="#{general.delete.label}" th:href="@{#}" data-toggle="modal" data-target="[data-sem=user_delete_container]"
+								data:sem="user_delete_request">
+								<span class="glyphicon glyphicon-trash"></span>
+								<span class="visible-xs-inline" th:text="#{general.delete.label}"></span>
+							</a>
+						  </li>
+					  	</th:block>
+	  				    <th:block th:if="${page == 'clients'}">
+						  <li>
+							<a th:title="#{general.add.label}" th:href="@{#}" data-toggle="modal" data-target="[data-sem=client_create_container]"
+							data:sem="client_create_request">
+								<span class="glyphicon glyphicon-plus"></span>
+								<span class="visible-xs-inline" th:text="#{general.add.label}"></span>
+							</a>
+						  </li>
+					  	</th:block>
+	  				    <th:block th:if="${page == 'client'}">
+						  <li>
+							<a th:title="#{general.delete.label}" th:href="@{#}" data-toggle="modal" data-target="[data-sem=client_delete_container]"
+							data:sem="client_delete_request">
+								<span class="glyphicon glyphicon-trash"></span>
+								<span class="visible-xs-inline" th:text="#{general.delete.label}"></span>
+							</a>
+						  </li>
+					  	</th:block>
+
+						<li sec:authorize="hasRole('ROLE_USER')" class="dropdown" data-sem="navigation_menu_container">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" data-sem="navigation_menu_request">
+								<span sec:authentication="name">_User_</span> <span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu" data-sem="navigation_menu">
+								<li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/h2-console}" data-sem="h2_console_request" >H2 Console</a></li>
+								<li sec:authorize="hasRole('ROLE_ADMIN')" role="separator" class="divider"></li>
+								<li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin/users}" data-sem="users_request">Users administration</a></li>
+								<li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin/clients}" data-sem="clients_request">Clients administration</a></li>
+								<li sec:authorize="hasRole('ROLE_ADMIN')" role="separator" class="divider"></li>
+								<li >
+									<form   class="navbar-form" th:action="@{/logout}" method="post">
+										<input type="submit" class="btn btn-primary" value="Logout" data:sem="logout_request"/>
+									</form>
+								</li>
+							</ul>
+						</li>
+						<li sec:authorize="!hasRole('ROLE_USER')" th:if="${page != 'login'}" data-sem="navigation_menu_container">
+							<a th:href="@{/login}" data:sem="login_request">Login</a>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

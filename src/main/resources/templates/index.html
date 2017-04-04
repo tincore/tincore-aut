@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+xmlns:data="http://www.thymeleaf.org/extras/data">
+<head>
+<title th:text="#{home.title}"></title>
+<link th:replace="fragments/head :: head" />
+</head>
+<body>
+	<div class="container-fluid" data-sem="home_container">
+		<div th:replace="fragments/navbar :: navbar(page='home')"></div>
+		<div class="content">
+			<a th:href="@{${@environment.getProperty('ui.url', 'http://localhost:8080')}}">Go back to UI</a>
+			<div id="created" th:text="${#dates.format(timestamp)}">July 11, 2012 2:17:16 PM CDT</div>
+		</div>
+	</div>
+</body>
+</html>

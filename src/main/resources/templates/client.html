@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:data="http://www.thymeleaf.org/extras/data">
+<head>
+<title th:text="#{client.edit.title}+': '+${client.clientId}"></title>
+<link th:replace="fragments/head :: head" />
+</head>
+<body>
+	<div class="container-fluid" data-sem="client_container" data:sem-qualifier="${client.clientId}">
+			<div th:replace="fragments/navbar :: navbar(page='client')"></div>
+
+			<div class="row">
+				<div class="main">
+
+					<div class="col-sm-3"></div>
+					<div class="col-sm-6">
+						<div th:replace="fragments/message :: alertdanger(message=${message})"></div>
+						<form class="form-horizontal" action="#" th:action="@{/admin/clients/__${client.clientId}__}" th:object="${client}" method="post" autocomplete="off">
+							<div class="form-group">
+								<label class="control-label" th:text="#{general.id.label}"></label>
+								<input type="text" class="form-control" th:value="*{clientId}" th:field="*{clientId}" disabled="disabled"
+								data-sem="client_clientid"></input>
+								<span class="error help-block" th:if="${#fields.hasErrors('*{clientId}')}" th:errors="*{clientId}">error</span>
+							</div>
+							<div class="form-group">
+								<label class="control-label" th:text="#{general.clientSecret.label}"></label>
+								<input type="text" class="form-control" th:value="*{clientSecret}" th:field="*{clientSecret}" 
+								data-sem="client_clientsecret"></input>
+								<span class="error help-block" th:if="${#fields.hasErrors('*{clientSecret}')}" th:errors="*{clientSecret}">error</span>
+							</div>
+							<div class="form-group">
+								<label class="control-label" th:text="#{general.scope.label}"></label>
+								<input type="text" class="form-control" th:value="*{scope}" th:field="*{scope}" 
+								data-sem="client_scope"></input>
+								<span class="error help-block" th:if="${#fields.hasErrors('*{scope}')}" th:errors="*{scope}">error</span>
+							</div>
+							<div class="form-group">
+								<label class="control-label" th:text="#{general.autoapprove.label}"></label>
+								<input type="text" class="form-control" th:value="*{autoapprove}" th:field="*{autoapprove}" 
+								data-sem="client_autoapprove"></input>
+								<span class="error help-block" th:if="${#fields.hasErrors('*{autoapprove}')}" th:errors="*{autoapprove}">error</span>
+							</div>
+							<div class="form-group">
+								<label class="control-label" th:text="#{general.resourceIds.label}"></label>
+								<input type="text" class="form-control" th:value="*{resourceIds}" th:field="*{resourceIds}" 
+								data-sem="client_resourceids"></input>
+								<span class="error help-block" th:if="${#fields.hasErrors('*{resourceIds}')}" th:errors="*{resourceIds}">error</span>
+							</div>
+							<div class="form-group">
+								<label class="control-label" th:text="#{general.authorizedGrantTypes.label}"></label>
+								<input type="text" class="form-control" th:value="*{authorizedGrantTypes}" th:field="*{authorizedGrantTypes}" 
+								data-sem="client_authorizedGrantTypes"></input>
+								<span class="error help-block" th:if="${#fields.hasErrors('*{authorizedGrantTypes}')}" th:errors="*{authorizedGrantTypes}">error</span>
+							</div>
+							<div class="form-group">
+								<label class="control-label" th:text="#{general.webServerRedirectUri.label}"></label>
+								<input type="text" class="form-control" th:value="*{webServerRedirectUri}" th:field="*{webServerRedirectUri}" 
+								data-sem="client_webServerRedirectUri"></input>
+								<span class="error help-block" th:if="${#fields.hasErrors('*{webServerRedirectUri}')}" th:errors="*{webServerRedirectUri}">error</span>
+							</div>
+							<div class="form-group">
+								<label class="control-label" th:text="#{general.authorities.label}"></label>
+								<input type="text" class="form-control" th:value="*{authorities}" th:field="*{authorities}" 
+								data-sem="client_authorities"></input>
+								<span class="error help-block" th:if="${#fields.hasErrors('*{authorities}')}" th:errors="*{authorities}">error</span>
+							</div>
+							<div class="form-group">
+								<label class="control-label" th:text="#{general.accessTokenValidity.label}"></label>
+								<input type="text" class="form-control" th:value="*{accessTokenValidity}" th:field="*{accessTokenValidity}" 
+								data-sem="client_accessTokenValidity"></input>
+								<span class="error help-block" th:if="${#fields.hasErrors('*{accessTokenValidity}')}" th:errors="*{accessTokenValidity}">error</span>
+							</div>
+							<div class="form-group">
+								<label class="control-label" th:text="#{general.refreshTokenValidity.label}"></label>
+								<input type="text" class="form-control" th:value="*{refreshTokenValidity}" th:field="*{refreshTokenValidity}" 
+								data-sem="client_refreshTokenValidity"></input>
+								<span class="error help-block" th:if="${#fields.hasErrors('*{refreshTokenValidity}')}" th:errors="*{refreshTokenValidity}">error</span>
+							</div>
+							<div class="form-group">
+								<label class="control-label" th:text="#{general.additionalInformation.label}"></label>
+								<input type="text" class="form-control" th:value="*{additionalInformation}" th:field="*{additionalInformation}"
+								data-sem="client_additionalinformation" ></input>
+								<span class="error help-block" th:if="${#fields.hasErrors('*{additionalInformation}')}" th:errors="*{additionalInformation}">error</span>
+							</div>
+							
+							<div class="form-group">
+								<div class="col-sm-offset-4 col-sm-8">
+									<button type="submit" class="btn btn-primary" name="action" value="do" th:text="#{general.save.label}" data-sem="client_save">Save</button>
+									<button type="submit" class="btn btn-default active" name="action" value="cancel" th:text="#{general.cancel.label}" data-sem="client_save_cancel">Cancel</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="col-sm-3"></div>
+				</div>
+				<!-- END MAIN TAG -->
+			</div>
+			<!-- END ROW TAG -->
+			<!-- END CONTAINER TAG -->
+			<div class="modal fade" data-sem="client_delete_container" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+							<form class="form" action="#" th:action="@{/admin/clients/__${client.clientId}__/delete}" th:object="${client}"  
+							autocomplete="off" method="post">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Delete Client</h4>
+							</div>
+							<div class="modal-body">
+								<div class="form-group">
+									<label class="control-label" th:text="#{general.id.label}">ClientId</label>
+									<input type="text" class="form-control" th:value="*{clientId}" th:field="*{clientId}" disabled="disabled"></input>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" th:text="#{general.delete.label}" class="btn btn-primary" data-sem="client_delete"></button>
+								<button type="button" th:text="#{general.cancel.label}" class="btn btn-default" data-dismiss="modal" data-sem="client_delete_cancel">Cancel</button>							
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html 	xmlns:th="http://www.thymeleaf.org" 
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+		xmlns:data="http://www.thymeleaf.org/extras/data">
+		
+<head>
+<title th:text="#{clients.title}"></title>
+<link th:replace="fragments/head :: head" />
+</head>
+<body>
+	<div class="container-fluid" data-sem="clients_container">
+			<div th:replace="fragments/navbar :: navbar(page='clients')"></div>
+			
+			<div class="row">
+				<div class="main">
+				<ul class="list-group">
+			    		<li class="container-fluid content list-group-item " data-sem="client_container" th:each="client : ${clients}" data:sem-qualifier="${client.clientId}">
+							<a href="#" th:href="@{/admin/clients/__${client.clientId}__}" data-sem="client_request" data:sem-qualifier="${client.clientId}">
+								<div class="row" >
+				  					<div class="col-xs-10" >
+				  						<h5>
+												<span th:text="${client.clientId}"></span>
+				  						</h5>
+				  					</div>
+								</div>
+							</a> 
+						</li>
+					</ul>
+				</div>
+				<!-- END MAIN TAG -->
+			</div>
+			<!-- END ROW TAG -->
+			<!-- END CONTAINER TAG -->
+			<div class="modal fade" data-sem="client_create_container" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+							<form class="form" action="#" th:action="@{/admin/clients}" th:object="${client}" method="post" autocomplete="off">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Create Client</h4>
+							</div>
+							<div class="modal-body">
+								<div th:replace="fragments/message :: alertdanger(message=${message})"></div>
+								<div class="form-group">
+									<label th:text="#{general.id.label}">ClientId</label>
+									<input class="form-control" type="text" th:field="*{clientId}" th:placeholder="#{general.id.label}" autocomplete="off" data-sem="client_clientid"></input>
+									<span class="error help-block" th:if="${#fields.hasErrors('*{clientId}')}" th:errors="*{clientId}">error</span>
+								</div>
+								<div class="form-group">
+									<label class="control-label" th:text="#{general.clientSecret.label}"></label>
+									<input type="text" class="form-control" th:value="*{clientSecret}" th:field="*{clientSecret}" data-sem="client_clientsecret"></input>
+									<span class="error help-block" th:if="${#fields.hasErrors('*{clientSecret}')}" th:errors="*{clientSecret}">error</span>
+								</div>
+								<div class="form-group">
+									<label class="control-label" th:text="#{general.scope.label}"></label>
+									<input type="text" class="form-control" th:value="*{scope}" th:field="*{scope}" data-sem="client_scope"></input>
+									<span class="error help-block" th:if="${#fields.hasErrors('*{scope}')}" th:errors="*{scope}">error</span>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" th:text="#{general.add.label}" class="btn btn-primary" data-sem="client_save">Add</button>
+								<button type="button" th:text="#{general.cancel.label}" class="btn btn-default" data-dismiss="modal" data-sem="client_save_cancel">Cancel</button>							
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

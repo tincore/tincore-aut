@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+xmlns:data="http://www.thymeleaf.org/extras/data">
+<head>
+<title th:text="#{user.edit.title}+': '+${user.username}"></title>
+<link th:replace="fragments/head :: head" />
+</head>
+<body>
+	<div class="container-fluid" data-sem="user_container" data:sem-qualifier="${user.username}">
+			<div th:replace="fragments/navbar :: navbar(page='user')"></div>
+
+			<div class="row">
+				<div class="main">
+					<div class="col-sm-3"></div>
+					<div class="col-sm-6">
+						<div th:replace="fragments/message :: alertdanger(message=${message})"></div>
+						<form class="form-horizontal" action="#" th:action="@{/admin/users/__${user.username}__}" th:object="${user}" method="post">
+							<div class="form-group">
+								<label class="control-label" th:text="#{general.username.label}"></label>
+								<input type="hidden" class="form-control" th:field="*{username}"></input> 
+								<input type="text" class="form-control" th:field="*{username}" disabled="disabled" data-sem="user_username"></input>
+							</div>
+							<div class="form-group">
+								<label class="control-label" th:text="#{general.firstName.label}"></label>
+								<input type="text" class="form-control" th:field="*{firstName}" data-sem="user_firstname"></input>
+								<span class="error help-block" th:if="${#fields.hasErrors('*{firstName}')}" th:errors="*{firstName}"></span>
+							</div>
+							<div class="form-group">
+								<label class="control-label" th:text="#{general.lastName.label}"></label>
+								<input type="text" class="form-control" th:field="*{lastName}" data-sem="user_lastname"></input>
+								<span class="error help-block" th:if="${#fields.hasErrors('*{lastName}')}" th:errors="*{lastName}"></span>
+							</div>
+							<div class="form-check">
+							  	<label class="form-check-label">
+    								<input class="form-check-input" type="checkbox" th:field="*{enabled}" data-sem="user_enabled"/>
+    								<span th:text="#{general.enabled.label}"></span>
+  								</label>
+							</div>
+							<div class="form-check">
+							  	<label class="form-check-label">
+    								<input class="form-check-input" type="checkbox" th:field="*{accountLocked}"/>
+    								<span th:text="#{general.accountLocked.label}"></span>
+  								</label>
+							</div>
+							<div class="form-check">
+							  	<label class="form-check-label">
+    								<input class="form-check-input" type="checkbox" th:field="*{accountExpired}"/>
+    								<span th:text="#{general.accountExpired.label}"></span>
+  								</label>
+							</div>
+							<div class="form-check">
+							  	<label class="form-check-label">
+    								<input class="form-check-input" type="checkbox" th:field="*{credentialsExpired}"/>
+    								<span th:text="#{general.credentialsExpired.label}"></span>
+  								</label>
+							</div>
+							<div class="form-group">
+								<label class="control-label" th:text="#{general.newPassword.label}"></label>
+								<input type="password" class="form-control" th:field="*{newPassword}" data-sem="user_password_new"></input>
+<!-- 								<span th:text="${#fields.errors('*')}"></span> -->
+								<span class="error help-block" th:if="${#fields.hasErrors('newPassword')}" th:errors="*{newPassword}"></span>
+							</div>
+
+							<div class="form-group">
+								<div class="col-sm-offset-4 col-sm-8">
+									<button type="submit" class="btn btn-primary" name="action" value="do" th:text="#{general.save.label}" data-sem="user_save">Save</button>
+									<button type="submit" class="btn btn-default active" name="action" value="cancel" th:text="#{general.cancel.label}" data-sem="user_save_cancel">Cancel</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="col-sm-3"></div>
+				</div>
+				<!-- END MAIN TAG -->
+			</div>
+			<!-- END ROW TAG -->
+		<!-- END CONTAINER TAG -->
+	<div class="modal fade" data-sem="user_delete_container" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+					<form class="form" action="#" th:action="@{/admin/users/__${user.username}__/delete}" th:object="${user}"  autocomplete="off" method="post">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Delete User</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label class="control-label" th:text="#{general.username.label}"></label>
+							<input type="text" class="form-control" th:field="*{username}" disabled="disabled"></input>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" th:text="#{general.delete.label}" class="btn btn-primary" data-sem="user_delete"></button>
+						<button type="button" th:text="#{general.cancel.label}" class="btn btn-default" data-dismiss="modal" data-sem="user_delete_cancel">Cancel</button>							
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	</div>
+</body>
+</html>
