@@ -1,6 +1,6 @@
-# Tincore Authorisation
+# Tincore Authorization
 
-This is a simple Oauth2 authorisation server. You can create users and register clients.
+This is a simple Oauth2 authorization server. You can create users and register clients.
 
 It is preconfigured for Gliderun app.
 
