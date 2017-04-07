@@ -6,7 +6,7 @@ It is preconfigured for Gliderun app.
 
 # Installation and execution
 
-You can build the program yourself or, temporarily, grab already built packages from https://github.com/tincore/gliderun-server/tree/master/build
+You can build the program yourself or, temporarily, grab already built packages from https://github.com/tincore/releases/tree/master/build
 
 Execute with the command: java -jar tincore-aut-<VERSION>.jar 
 
